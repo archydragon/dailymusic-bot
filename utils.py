@@ -11,6 +11,10 @@ def get_xpath(url, xpath):
     root = lxml.html.fromstring(r.text)
     return root.xpath(xpath)
 
+def if_url_exists(url):
+    r = requests.head(url, headers={'User-Agent': USER_AGENT})
+    return r.status_code < 400
+
 def rfctime():
     return datetime.datetime.now(datetime.timezone.utc).isoformat()
 

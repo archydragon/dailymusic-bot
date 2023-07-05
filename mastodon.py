@@ -2,13 +2,20 @@ import requests, requests.exceptions
 import time
 
 import db
-from utils import limit_string
+from utils import limit_string, if_url_exists
 
 COMMON_TAGS = "#music #dailymusic"
 
 def post(instance, token, message_length_limit, db_path):
     dbcon = db.init(db_path)
-    (album_url, artist, album, tags, description, _, _, _) = db.get_random_album(dbcon)
+    chosen = False
+    while not chosen:
+        (album_url, artist, album, tags, description, _, _, _) = db.get_random_album(dbcon)
+        if if_url_exists(album_url):
+            chosen = True
+        else:
+            db.mark_album_as_deleted(dbcon, album_url)
+            print(f"The album {album_url} doesn't seem to be available anymore.")
     if description:
         limit = message_length_limit - len(album_url) - len(artist) - len(album) - len(tags) - len(COMMON_TAGS) - 20
         description = limit_string(description, limit) + "\n\n"
