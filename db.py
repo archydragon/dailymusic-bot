@@ -52,10 +52,12 @@ def get_random_album(con):
 
 def mark_album_as_posted(con, album_url):
     cur = con.cursor()
-    cur.execute(f"update {DB_TABLE} set status='posted' where url='{album_url}'")
+    now = rfctime()
+    cur.execute(f"update {DB_TABLE} set status='posted', updated='{now}' where url='{album_url}'")
     con.commit()
 
 def mark_album_as_deleted(con, album_url):
     cur = con.cursor()
-    cur.execute(f"update {DB_TABLE} set status='deleted' where url='{album_url}'")
+    now = rfctime()
+    cur.execute(f"update {DB_TABLE} set status='deleted', updated='{now}' where url='{album_url}'")
     con.commit()
