@@ -48,8 +48,11 @@ def fetch_albums(number, db_path):
         keywords = jsonld.get('keywords')
 
         # Only use the first paragraph of the description, and only if it's long enough.
-        if description and len(description) > 20:
+        if description:
             description = description.split("\r\n\r\n")[0]
+            if len(description) < 20:
+                description = None
+
         # Convert fetched keywords for the album to normalized hashtags.
         tags = " ".join([convert_keyword(k) for k in keywords if convert_keyword(k) is not None])
 
