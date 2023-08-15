@@ -2,6 +2,8 @@
 
 The source code for <a rel="me" href="https://botsin.space/@dailymusic">Daily Music</a> bot.
 
+**2023-08-15:** repository moved to [Codeberg](https://codeberg.org/archydragon/dailymusic-bot), this one is archived.
+
 ## What does it do?
 
 It's purpose is very simple: to post good releases from Bandcamp to Mastodon, so people (including me) could enjoy some unexpected but nice music.
